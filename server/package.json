@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Server aplikacija za projekat",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gamma1772/ISTProjekatV2.git"
+  },
+  "author": "Marko Dujović, NRT-85/19",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gamma1772/ISTProjekatV2/issues"
+  },
+  "homepage": "https://github.com/gamma1772/ISTProjekatV2#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "express": "^4.18.1"
+  }
+}
