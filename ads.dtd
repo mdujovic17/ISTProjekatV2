@@ -1,0 +1,14 @@
+<!ELEMENT ads (ad)+>
+<!ATTLIST ads xmlns:xsi                     CDATA "http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation CDATA "ads.xsd">
+<!ELEMENT ad (category, date, price, description, tags, e-mails)>
+<!ELEMENT category (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+<!ATTLIST price currency CDATA "RSD">
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT tags (tag)+>
+<!ELEMENT tag (#PCDATA)>
+<!ELEMENT e-mails (e-mail)+>
+<!ELEMENT e-mail (#PCDATA)>
+<!ATTLIST e-mail type (private|work) #REQUIRED>
