@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ads SYSTEM "ads.dtd">
+<ads xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ads.xsd">
+    <ad>
+        <category>Automobili</category>
+        <date>2004-06-25</date>
+        <price currency="RSD">123.45</price>
+        <description>Deset karaktera</description>
+        <tags>
+            <tag>dat</tag>
+        </tags>
+        <e-mails>
+            <e-mail type="private">email@email.com</e-mail>
+        </e-mails>
+    </ad>
+</ads>
