@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/gamma1772/ISTProjekatV2#readme",
   "dependencies": {
+    "ads-module": "file:../ads-module",
     "axios": "^0.27.2",
     "express": "^4.18.1"
   }

@@ -1,38 +1,39 @@
-const { request, response } = require("express");
 const express = require("express");
-let fs = require("./fs")
+const adsModule = require("ads-module")
 const app = express();
-const PORT = 3000;
+const port = 3001;
 
 app.use(express.urlencoded({extended:false}))
-app.use(express.json)
+app.use(express.json())
 
-//List all advertisements
-app.get("/advertisements", (request, response) => {
-    response.send(fs.allAdvertisemnets());
-});
+app.get('/allAdvertisements',(request, response)=>{ response.send(adsModule.allAdvertisements()) });
 
-//Get Advertisement with a specified ID
-app.get("/get/:id", (request, response) => {
-    response.send(fs.getAdvertisement(request.params["id"]))
-});
+app.get('/get/:id',(request, response)=>{ response.send(adsModule.getAdvertisement(request.params["id"])) });
 
-//Filter ads by price or category
-app.get("/filter/:param", (request, response) => {
-    if (request.params["param"].valueOf() === "price") {
-        response.send(fs.getAdByPrice(request.query["price"]))
-    } 
-    else if (request.params["param"].valueOf() === "category") {
-        response.send(fs.getAdByPrice(request.query["category"]))
-    }
-})
-
-app.post("/add", (request, response) => {
-    fs.addAdvertisement(request.body);
+app.post('/add',(request,response)=>{
+    adsModule.addAdvertisement(request.body);
     response.end("OK");
 })
 
-//Listens for server start and logs the server port
-app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
-});
+app.delete('/delete/:id',(request,response)=>{
+    adsModule.deleteAdvertisement(request.params["id"]);
+    response.end("OK");
+})
+
+app.get('/edit/:id',(request,response)=>{ response.send(adsModule.getAdvertisement(request.params["id"])); })
+
+app.post('/edit/:id',(request,response)=>{
+    console.log(request.body);
+    adsModule.editAdvertisement(request.params["id"],request.body);
+    response.end("OK");
+})
+
+app.get('/filterByCategory/',(request,response)=>{
+    response.send(adsModule.getAdByCategory(request.query["category"]))
+})
+
+app.get('/filterByPrice/',(request,response)=>{
+    response.send(adsModule.getAdByPrice(request.query["price"]))
+})
+
+app.listen(port,()=>{console.log(`Server start on port ${port}`)});
