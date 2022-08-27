@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodaj novi oglas</title>
+
+    <!-- Bootstrap 5.2.0 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.js" crossorigin="anonymous"></script>
+   
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.2/css/all.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-light" href="/">IST Projekat (v2)</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link text-light" aria-current="page" href="/">Početna</a>
+                    <a class="nav-link text-light active" aria-current="page" href="/details">Novi oglas</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="display-1 text-center my-auto p-5">Dodaj novi oglas</div>
+    <div class="container">
+        <form action="/add" method="post">
+            <div class="form-floating mb-3">
+                <select class="form-select" id="category" name="category" aria-label="category-selection" required>
+                    <option selected>Odaberite kategoriju...</option>
+                    <option value="automobili">Automobili</option>
+                    <option value="alat">Alat</option>
+                    <option value="komponente">Komponente</option>
+                    <option value="rezervni-delovi">Rezervni delovi</option>
+                    <option value="ostalo">Ostalo</option>
+                </select>
+                <label for="category">Kategorija oglasa</label>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="form-floating w-50">
+                    <input type="text" class="form-control" id="price" name="price" aria-label="Cena" required>
+                    <label for="price">Cena</label>
+                </div>
+                <div class="form-floating">
+                    <select class="form-select" id="currency" name="currency" aria-label="category-selection" required>
+                        <option selected>Odaberite valutu...</option>
+                        <option value="rsd">Dinar RSD</option>
+                        <option value="eur">Evro € </option>
+                        <option value="dlr">Dolar $ </option>
+                    </select>
+                    <label for="currency">Valuta</label>
+                </div>
+              </div>
+            <div class="form-floating mb-3">
+                <textarea class="form-control" id="text" name="text" style="height: 150px" required></textarea>
+                <label for="text">Tekst oglasa</label>
+            </div>
+            
+            <div class="container" id="emails">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <label for="email">Email adresa</label>
+                </div>
+                <div class="container row mb-3">
+                    <div class="form-check col">
+                        <input class="form-check-input" type="radio" name="radioMail" id="radioPublic" checked>
+                        <label class="form-check-label" for="radioPublic">
+                            Sluzbeni email
+                        </label>
+                    </div>
+                    <div class="form-check col">
+                        <input class="form-check-input" type="radio" name="radioMail" id="radioPrivate">
+                        <label class="form-check-label" for="radioPrivate">
+                            Privatni email
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <input type="number" hidden id="counter" name="counter" value="0">
+            <div class="mb-3">
+                <button type="button" class="btn btn-secondary btn-lg w-100" onclick="addNewMail()">Dodaj novi mail</button>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="date" aria-label="Datum" required>
+                <label for="date">Datum oglasa</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="tags" aria-label="Tagovi" required>
+                <label for="tags">Tagovi (Odvojeni zarezom)</label>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-secondary btn-lg w-100">Dodaj novi oglas</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        let counter = 0;
+        function addNewMail() {
+            document.getElementById("emails").innerHTML += 
+            `
+            <div id="new-mail-${counter}" name="new-mail-${counter}">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" name="email-${counter}" id="email-${counter}" required>
+                    <label for="email-${counter}">Email adresa</label>
+                </div>
+                <div class="container row mb-3">
+                    <div class="form-check col">
+                        <input class="form-check-input" type="radio" name="radioMail-${counter}" id="radioPublic-${counter}" value="public" checked>
+                        <label class="form-check-label" for="radioPublic-${counter}">
+                            Sluzbeni email
+                        </label>
+                    </div>
+                    <div class="form-check col">
+                        <input class="form-check-input" type="radio" name="radioMail-${counter}" id="radioPrivate-${counter}" value="private">
+                        <label class="form-check-label" for="radioPrivate-${counter}">
+                            Privatni email
+                        </label>
+                    </div>
+                </div>
+                <div class="container mb-3">
+                    <button type="button" class="btn btn-secondary btn-lg w-100" onclick="removeNewMail(${counter})">Ukloni</button>
+                </div>
+            </div>
+            `
+
+            counter++;
+
+            let c = document.getElementById("counter");
+            c.value = counter;
+        }
+
+        function removeNewMail(id) {
+            document.getElementById(`new-mail-${id}`).remove();
+
+            counter--;
+
+            let c = document.getElementById("counter");
+            c.value = counter;
+        }
+    </script>
+</body>
+</html>
