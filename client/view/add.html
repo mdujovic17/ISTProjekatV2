@@ -23,14 +23,14 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link text-light" aria-current="page" href="/">Početna</a>
-                    <a class="nav-link text-light active" aria-current="page" href="/details">Novi oglas</a>
+                    <a class="nav-link text-light active" aria-current="page" href="/add">Novi oglas</a>
                 </div>
             </div>
         </div>
     </nav>
     <div class="display-1 text-center my-auto p-5">Dodaj novi oglas</div>
     <div class="container">
-        <form action="/add" method="post">
+        <form action="/add" method="POST">
             <div class="form-floating mb-3">
                 <select class="form-select" id="category" name="category" aria-label="category-selection" required>
                     <option selected>Odaberite kategoriju...</option>
@@ -59,10 +59,17 @@
                 </div>
               </div>
             <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="date" name="date" aria-label="date" required>
+                <label for="date">Datum oglasa</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="tags" name="tags" aria-label="tags" required>
+                <label for="tags">Tagovi (Odvojeni zarezom)</label>
+            </div>
+            <div class="form-floating mb-3">
                 <textarea class="form-control" id="text" name="text" style="height: 150px" required></textarea>
                 <label for="text">Tekst oglasa</label>
             </div>
-            
             <div class="container" id="emails">
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="email" name="email" required>
@@ -70,13 +77,13 @@
                 </div>
                 <div class="container row mb-3">
                     <div class="form-check col">
-                        <input class="form-check-input" type="radio" name="radioMail" id="radioPublic" checked>
+                        <input class="form-check-input" type="radio" name="radioMail" id="radioPublic" value="public" checked>
                         <label class="form-check-label" for="radioPublic">
                             Sluzbeni email
                         </label>
                     </div>
                     <div class="form-check col">
-                        <input class="form-check-input" type="radio" name="radioMail" id="radioPrivate">
+                        <input class="form-check-input" type="radio" name="radioMail" id="radioPrivate" value="private">
                         <label class="form-check-label" for="radioPrivate">
                             Privatni email
                         </label>
@@ -87,14 +94,7 @@
             <div class="mb-3">
                 <button type="button" class="btn btn-secondary btn-lg w-100" onclick="addNewMail()">Dodaj novi mail</button>
             </div>
-            <div class="form-floating mb-3">
-                <input type="date" class="form-control" id="date" aria-label="Datum" required>
-                <label for="date">Datum oglasa</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="tags" aria-label="Tagovi" required>
-                <label for="tags">Tagovi (Odvojeni zarezom)</label>
-            </div>
+            
             <div class="mb-3">
                 <button type="submit" class="btn btn-secondary btn-lg w-100">Dodaj novi oglas</button>
             </div>
@@ -107,18 +107,18 @@
             `
             <div id="new-mail-${counter}" name="new-mail-${counter}">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" name="email-${counter}" id="email-${counter}" required>
+                    <input type="email" class="form-control" name='email-${counter}' id="email-${counter}" required>
                     <label for="email-${counter}">Email adresa</label>
                 </div>
                 <div class="container row mb-3">
                     <div class="form-check col">
-                        <input class="form-check-input" type="radio" name="radioMail-${counter}" id="radioPublic-${counter}" value="public" checked>
+                        <input class="form-check-input" type="radio" name='radioMail-${counter}' id="radioPublic-${counter}" value="public" checked>
                         <label class="form-check-label" for="radioPublic-${counter}">
                             Sluzbeni email
                         </label>
                     </div>
                     <div class="form-check col">
-                        <input class="form-check-input" type="radio" name="radioMail-${counter}" id="radioPrivate-${counter}" value="private">
+                        <input class="form-check-input" type="radio" name='radioMail-${counter}' id="radioPrivate-${counter}" value="private">
                         <label class="form-check-label" for="radioPrivate-${counter}">
                             Privatni email
                         </label>
