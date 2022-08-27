@@ -19,11 +19,14 @@ app.get("/", (req, res) => {
 
     let options = {
         method: "GET",
-        url: `http://localhost:${SERVER_PORT}/`
+        url: `http://localhost:${SERVER_PORT}/advertisements`
     };
 
+    console.log(res.data)
+
+    let view = "";
     axios.request(options).then((response) => {
-        let view = "";
+        
         response.data.forEach(element => {
             view += 
             `
@@ -40,10 +43,10 @@ app.get("/", (req, res) => {
             </tr>
             `;
         });
-        res.send(getView("index").replace("##TABLEDATA", view));
     }).catch((error) => {
         console.log(error);
     });
+    res.send(getView("index").replace("##TABLEDATA", view));
 });
 
 app.get("/details/:id", (req, res) => {
@@ -108,9 +111,11 @@ app.get("/add", (req, res) => {
 
 app.post("/add", (req, res) => {
 
+    console.log(req.body);
+
     let emails = [];
 
-    emails.push({email: req.body[`email`], type: req.body[`radioMail`]})
+    emails.push({email: req.body[`email`], type: req.body.radioMail})
 
     for (let i = 0; i < req.body.counter; i++) {
         emails.push( {email: req.body[`email-${i}`], type: req.body[`radioMail-${i}`]} );
@@ -130,9 +135,13 @@ app.post("/add", (req, res) => {
         }
     };
 
+    
+
     axios.request(options).then(response => {
         console.log(response.data)
     })
 
     res.redirect("/");
-})
+});
+
+app.listen(PORT, () => { console.log(`Client started on port ${PORT}`); });
