@@ -27,6 +27,11 @@ app.get("/filter/:param", (request, response) => {
     }
 })
 
+app.post("/add", (request, response) => {
+    fs.addAdvertisement(request.body);
+    response.end("OK");
+})
+
 //Listens for server start and logs the server port
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
