@@ -1,0 +1,19 @@
+{
+  "name": "ads-module",
+  "version": "1.0.0",
+  "description": "Module for handling advertisement data",
+  "main": "module.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markonrt8519/NRT_085_19.git"
+  },
+  "author": "Marko Dujović, NRT-85/19",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/markonrt8519/NRT_085_19/issues"
+  },
+  "homepage": "https://github.com/markonrt8519/NRT_085_19#readme"
+}
