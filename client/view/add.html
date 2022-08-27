@@ -33,7 +33,7 @@
         <form action="/add" method="POST">
             <div class="form-floating mb-3">
                 <select class="form-select" id="category" name="category" aria-label="category-selection" required>
-                    <option selected>Odaberite kategoriju...</option>
+                    <option selected disabled value="">Odaberite kategoriju...</option>
                     <option value="automobili">Automobili</option>
                     <option value="alat">Alat</option>
                     <option value="komponente">Komponente</option>
@@ -50,10 +50,10 @@
                 </div>
                 <div class="form-floating">
                     <select class="form-select" id="currency" name="currency" aria-label="category-selection" required>
-                        <option selected>Odaberite valutu...</option>
-                        <option value="rsd">Dinar RSD</option>
-                        <option value="eur">Evro € </option>
-                        <option value="dlr">Dolar $ </option>
+                        <option selected disabled value="">Odaberite valutu...</option>
+                        <option value="RSD">Dinar RSD</option>
+                        <option value="EUR">Evro € </option>
+                        <option value="USD">Dolar $ </option>
                     </select>
                     <label for="currency">Valuta</label>
                 </div>
@@ -95,16 +95,17 @@
                 <button type="button" class="btn btn-secondary btn-lg w-100" onclick="addNewMail()">Dodaj novi mail</button>
             </div>
             
-            <div class="mb-3">
-                <button type="submit" class="btn btn-secondary btn-lg w-100">Dodaj novi oglas</button>
+            <div class="col mb-3">
+                <button type="submit" class="btn btn-secondary btn-lg w-50">Dodaj novi oglas</button>
             </div>
         </form>
     </div>
     <script>
         let counter = 0;
         function addNewMail() {
-            document.getElementById("emails").innerHTML += 
-            `
+            let emails = document.getElementById("emails");
+            let element = document.createElement("div");
+            element.innerHTML = `
             <div id="new-mail-${counter}" name="new-mail-${counter}">
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" name='email-${counter}' id="email-${counter}" required>
@@ -128,7 +129,9 @@
                     <button type="button" class="btn btn-secondary btn-lg w-100" onclick="removeNewMail(${counter})">Ukloni</button>
                 </div>
             </div>
-            `
+            `;
+            
+            emails.appendChild(element);
 
             counter++;
 
