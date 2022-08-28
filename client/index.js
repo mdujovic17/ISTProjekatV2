@@ -306,4 +306,32 @@ app.get("/delete/:id", (req, res) => {
     res.redirect("/");
 });
 
+app.get("/filter", (req, res) => {
+    let options = {
+        method: 'GET',
+        url: `http://localhost:${SERVER_PORT}/filter?priceMin=${req.query["priceMin"]}&priceMax=${req.query["priceMax"]}&category=${req.query["category"]}&keywords=${req.query["keywords"]}&tags=${req.query["tags"]}`
+    };
+
+    console.log(req.query);
+
+    axios.request(options).then((response) => {
+        let view = '';
+        response.data.forEach(element => {
+        view += 
+            `<tr>
+                <th scope="row">${element.id}</th>
+                <td>${element.category}</td>
+                <td>${element.price} ${element.currency}</td>
+                <td>${element.date}</td>
+                <td scope="col" colspan="2">${element.text}</td>
+            
+                <td><a class="text-info" href="/details/${element.id}"><i class="fa fa-circle-info"></i></a></td>
+                <td><a class="text-warning" href="/edit/${element.id}"><i class="fa fa-pen"></i></a></td>
+                <td><a class="text-danger" href="/delete/${element.id}"><i class="fa fa-trash"></i></a></td>
+            </tr>`;
+        });
+        res.send(getView("index").replace("##TABLEDATA", view));
+    }).catch((error) => { console.log(error); });
+});
+
 app.listen(PORT, () => { console.log(`Client started on port ${PORT}`); });

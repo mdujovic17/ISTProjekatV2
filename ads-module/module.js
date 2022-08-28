@@ -61,12 +61,42 @@ exports.editAdvertisement = (id, body) => {
     writeJSON(ads);
 }
 
-exports.getAdByCategory = (category) => {
+//JSON ne podrzava undefined objekat, tako da se konvertuje u string na klijentskoj strani, neazvisno od ovog projekta.
+exports.filter = (priceMin, priceMax, category, keywords, tags) => {
+    
+    if (priceMin === 'undefined') {
+        priceMin = 0;
+    }
+    if (priceMax === 'undefined') {
+        priceMax = 10000000;
+    }
+
+    let adverts = this.allAdvertisements().filter(ad => parseFloat(ad.price) >= parseFloat(priceMin) && parseFloat(ad.price) <= parseFloat(priceMax))
+    console.log(priceMin, priceMax, category, keywords, tags);
+    if (category !== 'undefined') {
+        adverts = adverts.filter(ad => ad.category.toLowerCase().includes(category.toLowerCase()));
+    }
+    if (keywords !== 'undefined') {
+        adverts = adverts.filter(ad => ad.text.toLowerCase().includes(keywords.toLowerCase()));
+    }
+    if (tags !== 'undefined') {
+        adverts = adverts.filter(ad => ad.tags.some(tag => tags.includes(tag)));
+    }
+
+    //console.log(adverts);
+    return adverts;
+}
+
+exports.filterByCategory = (category) => {
     return this.allAdvertisements().filter(ad => ad.category.toLowerCase().includes(category.toLowerCase()))
 }
 
 exports.getAdByPrice = (price) => {
     return this.allAdvertisements().filter(ad => parseInt(ad.price) >= parseInt(price))
+}
+
+exports.filterByPrice = (min, max) => {
+    return this.allAdvertisements().filter(ad => parseFloat(ad.price) >= parseFloat(min) && parseFloat(ad.price) <= parseFloat(max))
 }
 
 exports.deleteAdvertisement = (id) => {

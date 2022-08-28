@@ -1,5 +1,6 @@
 const express = require("express");
-const adsModule = require("ads-module")
+const adsModule = require("ads-module");
+const { response } = require("express");
 const app = express();
 const port = 3001;
 
@@ -28,12 +29,18 @@ app.post('/edit/:id',(request,response)=>{
     response.end("OK");
 })
 
-app.get('/filterByCategory/',(request,response)=>{
-    response.send(adsModule.getAdByCategory(request.query["category"]))
+app.get('/filter', (request, response) => {
+    console.log(request.query);
+    console.log(request.query["priceMin"], request.query["priceMax"], request.query["category"], request.query["keywords"], request.query["tags"]);
+    response.send(adsModule.filter(request.query["priceMin"], request.query["priceMax"], request.query["category"], request.query["keywords"], request.query["tags"]));
 })
 
-app.get('/filterByPrice/',(request,response)=>{
-    response.send(adsModule.getAdByPrice(request.query["price"]))
-})
+// app.get('/filter/:priceMin?&:priceMax?&:category',(request,response)=>{
+//     response.send(adsModule.getAdByCategory(request.query["category"]));
+// })
+
+// app.get('/filterByPrice/',(request,response)=>{
+//     response.send(adsModule.getAdByPrice(request.query.min, request.query.max))
+// })
 
 app.listen(port,()=>{console.log(`Server start on port ${port}`)});

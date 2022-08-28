@@ -32,6 +32,37 @@
     <div class="display-1 text-center my-auto p-5">Svi oglasi</div>
 
     <div class="container text-center my-auto">
+        <button type="button" id="filter-controller" class="btn btn-primary w-100 mb-3">Filteri <i class="fa-solid fa-filter"></i></button>
+        <div class="container text-center my-auto" id="filters" hidden>
+            <form action="/filter" method="GET">
+                <div class="input-group mb-3">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" id="chk-category" aria-label="Checkbox for category">
+                    </div>
+                    <input type="text" class="form-control" name="category" id="category" aria-label="Category" placeholder="Naziv kategorije" disabled>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" id="chk-keywords" aria-label="Checkbox for keywords">
+                    </div>
+                    <input type="text" class="form-control" name="keywords" id="keywords" aria-label="Keywords" placeholder="Kljucne reci" disabled>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" id="chk-tags" aria-label="Checkbox for tags">
+                    </div>
+                    <input type="text" class="form-control" name="tags" id="tags" aria-label="Tags" placeholder="Tagovi (odvojeni zarezom)" disabled>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" value="" id="chk-price" aria-label="Checkbox for price">
+                    </div>
+                    <input type="number" aria-label="Price min" class="form-control" id="price-min" name="priceMin" placeholder="Cena (Donja granica)" disabled>
+                    <input type="number" aria-label="Price max" class="form-control" id="price-max" name="priceMax" placeholder="Cena (Gornja granica)" disabled>
+                </div>
+                <button type="submit" id="filter" class="btn btn-secondary w-100 mb-3">Filtriraj <i class="fa-solid fa-filter"></i></button>
+            </form>
+        </div>
         <table class="table table-stripped">
             <thead>
                 <tr>
@@ -50,5 +81,72 @@
             </tbody>
         </table>
     </div>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', init, false);
+
+        function init() {
+            filters = document.getElementById("filters");
+
+            document.getElementById("filter-controller").addEventListener('click', () => {
+                filters.hidden = !filters.hidden;
+            });
+
+            let inputCategory = document.getElementById("category");
+            let inputKeywords = document.getElementById("keywords");
+            let inputTags = document.getElementById("tags");
+            let inputPriceMin = document.getElementById("price-min");
+            let inputPriceMax = document.getElementById("price-max");
+
+            let chkCategory = document.getElementById("chk-category");
+            let chkKeywords = document.getElementById("chk-keywords");
+            let chkTags = document.getElementById("chk-tags");
+            let chkPrice = document.getElementById("chk-price");
+
+            document.getElementById("chk-category").addEventListener('change', (event) => {
+                if (event.currentTarget.checked) {
+                    inputCategory.disabled = false;
+                }
+                else {
+                    inputCategory.disabled = true;
+                    inputCategory.value = ''
+                }
+            });
+
+            document.getElementById("chk-keywords").addEventListener('change', (event) => {
+                if (event.currentTarget.checked) {
+                    inputKeywords.disabled = false;
+                }
+                else {
+                    inputKeywords.disabled = true;
+                    inputKeywords.value = ''
+                }
+            });
+
+            document.getElementById("chk-tags").addEventListener('change', (event) => {
+                if (event.currentTarget.checked) {
+                    inputTags.disabled = false;
+                }
+                else {
+                    inputTags.disabled = true;
+                    inputTags.value = ''
+                }
+            });
+
+            document.getElementById("chk-price").addEventListener('change', (event) => {
+                if (event.currentTarget.checked) {
+                    inputPriceMin.disabled = false;
+                    inputPriceMax.disabled = false;
+                }
+                else {
+                    inputPriceMin.disabled = true;
+                    inputPriceMax.disabled = true;
+
+                    inputPriceMin.value = ''
+                    inputPriceMax.value = ''
+                }
+            });
+        }
+    </script>
 </body>
 </html>
